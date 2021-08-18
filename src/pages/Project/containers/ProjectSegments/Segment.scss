@@ -1,0 +1,38 @@
+.segment-container {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  font-size: 12px;
+  background-color: #343434;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+
+  .positive-end,
+  .negative-end {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    width: 100%;
+  }
+  .center {
+    justify-content: center;
+  }
+
+  .space-between {
+    justify-content: space-between;
+  }
+
+  .positive-connector,
+  .negative-connector {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: white;
+    margin: 12px;
+    cursor: pointer;
+  }
+}

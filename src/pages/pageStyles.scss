@@ -1,0 +1,15 @@
+.panel-edge-right,
+.panel-edge-left {
+  position: relative;
+  height: 100%;
+  width: 4px;
+  z-index: 100;
+  cursor: col-resize;
+}
+.panel-edge-right {
+  margin-left: auto;
+}
+
+.panel-edge-left {
+  margin-right: auto;
+}

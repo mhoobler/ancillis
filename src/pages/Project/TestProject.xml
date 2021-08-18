@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<project id="test_project">
+  <segment isFixed="true">
+    <type>base</type>
+    <conn>limb1</conn>
+    <x>0</x>
+    <y>0</y>
+  </segment>
+
+  <segment id="limb1">
+    <type>limb</type>
+    <conn>socket1</conn>
+  </segment>
+
+  <segment id="socket1">
+    <conn>limb2</conn>
+    <conn>limb3</conn>
+  </segment>
+
+  <segment id="limb2">
+    <type>limb</type>
+  </segment>
+  <segment id="limb3">
+    <type>limb</type>
+  </segment>
+
+</project>

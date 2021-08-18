@@ -1,0 +1,46 @@
+.project-container {
+  height: 100vh;
+  width: 100vw;
+
+  .project-sidebar-wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 25vw;
+    min-width: 300px;
+    height: 100%;
+    border: 3px solid black;
+
+    .project-sidebar-container {
+      width: 100%;
+      position: relative;
+
+      .project-sidebar-toolbar {
+        padding: 8px;
+        height: 5%;
+        user-select: none;
+      }
+
+      #project-components-wrapper {
+        height: 95%;
+        width: 100%;
+        overflow: auto;
+
+        svg {
+          height: 95%;
+          width: 120%;
+          position: relative;
+          height: 94vh;
+          min-width: calc(100% - 4px);
+          background-size: 40px 40px;
+          background-image: linear-gradient(to right, grey 1px, transparent 1px),
+            linear-gradient(to bottom, grey 1px, transparent 1px);
+
+          path {
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+}
