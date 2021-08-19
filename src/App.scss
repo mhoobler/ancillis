@@ -9,6 +9,12 @@
 .App {
   background-color: #282828;
   flex-direction: column;
-  display: flex;
   color: white;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.row {
+  display: flex;
 }
