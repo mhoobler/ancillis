@@ -1,37 +1,48 @@
-import { FC, useCallback } from "react";
-import * as THREE from "three";
+import { FC, useState, useEffect, useCallback } from "react";
+import ThreeHandler from "./utils/ThreeHandler";
+
+var THREE: ThreeHandler | null = null;
 
 const Canvas: FC = () => {
+  const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
+  const [scene, setScene] = useState<any>(null);
+
   const createScene = useCallback((node: HTMLDivElement) => {
-    if (node) {
-      const rect = node.getBoundingClientRect();
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(
-        75,
-        rect.width / rect.height,
-        0.1,
-        1000
-      );
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize(rect.width, rect.height);
-      node.appendChild(renderer.domElement);
-      var geometry = new THREE.BoxGeometry(1, 1, 1);
-      var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-      var cube = new THREE.Mesh(geometry, material);
-      scene.add(cube);
-      camera.position.z = 5;
-      var animate = function () {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      };
-      animate();
+    if (!THREE) {
+      THREE = new ThreeHandler(node);
+      THREE.bindDiv(node);
     }
-    return node;
+    setScene(THREE.scene);
+    THREE.addSegment("SOCKET");
+    THREE.addSegment("SOCKET");
+    THREE.addSegment("SOCKET");
+    THREE.addSegment("SOCKET");
+    THREE.getHelpers();
   }, []);
 
-  return <div ref={createScene} className="canvas-wrapper"></div>;
+  useEffect(() => {
+    // Kind of a crude way of forcing a rerender when resizing
+    // the window so we can redraw the canvas
+    let handleResize: any;
+
+    if (wrapperRef) {
+      createScene(wrapperRef);
+      handleResize = () => setWrapperRef(null);
+      window.addEventListener("resize", handleResize);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [createScene, wrapperRef]);
+
+  const handleRef = (node: HTMLDivElement) => {
+    if (node) {
+      setWrapperRef(node);
+    }
+  };
+
+  return <div ref={handleRef} className="canvas-wrapper"></div>;
 };
 
 export default Canvas;
