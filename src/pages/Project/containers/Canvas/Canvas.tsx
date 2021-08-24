@@ -1,24 +1,21 @@
-import { FC, useState, useEffect, useCallback } from "react";
-import ThreeHandler from "./utils/ThreeHandler";
-
-var THREE: ThreeHandler | null = null;
+import { FC, useState, useEffect, useCallback, useContext } from "react";
+import useThree from "./utils/useThree";
+import { ProjectContext } from "../../utils/ProjectContext";
 
 const Canvas: FC = () => {
   const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
-  const [scene, setScene] = useState<any>(null);
+  const { state } = useContext(ProjectContext);
+  const segments = Object.keys(state.segments).map(
+    (key) => state.segments[key]
+  );
+  const { init } = useThree(segments, { gui: true });
 
-  const createScene = useCallback((node: HTMLDivElement) => {
-    if (!THREE) {
-      THREE = new ThreeHandler(node);
-      THREE.bindDiv(node);
-    }
-    setScene(THREE.scene);
-    THREE.addSegment("SOCKET");
-    THREE.addSegment("SOCKET");
-    THREE.addSegment("SOCKET");
-    THREE.addSegment("SOCKET");
-    THREE.getHelpers();
-  }, []);
+  const createScene = useCallback(
+    (node: HTMLDivElement) => {
+      init(node);
+    },
+    [init]
+  );
 
   useEffect(() => {
     // Kind of a crude way of forcing a rerender when resizing
