@@ -50,6 +50,19 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
       return state;
     }
 
+    // KEYFRAMES
+    case "ADD_KEYFRAME": {
+      return state;
+    }
+
+    case "EDIT_KEYFRAME": {
+      return state;
+    }
+
+    case "DELETE_KEYFRAME": {
+      return state;
+    }
+
     default:
       return state;
   }

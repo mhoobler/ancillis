@@ -6,6 +6,9 @@
     &:first-child {
       height: 75vh;
     }
+    &:nth-child(2) {
+      height: 25vh;
+    }
   }
 
   .project-sidebar-wrapper {
@@ -52,9 +55,19 @@
     }
   }
 
-  .canvas-wrapper {
+  .canvas-container {
     display: flex;
     min-width: 600px;
     flex: 3 0 75%;
+    .canvas-handler {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .keyframes-container {
+    width: 100%;
+    height: 100%;
+    background-color: #454545;
   }
 }

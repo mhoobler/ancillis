@@ -6,7 +6,11 @@ import CanvasHandler from "./CanvasHandler";
 const CanvasContainer: FC = () => {
   const { state } = useContext(ProjectContext);
 
-  return <CanvasHandler segments={state.segments} />;
+  return (
+    <div className="canvas-container">
+      <CanvasHandler segments={state.segments} />
+    </div>
+  );
 };
 
 export default CanvasContainer;

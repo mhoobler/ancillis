@@ -62,7 +62,7 @@ const CanvasHandler: FC<Props> = ({ segments }) => {
     };
   }, [createScene, wrapperRef]);
 
-  return <div ref={handleRef} className="canvas-wrapper"></div>;
+  return <div ref={handleRef} className="canvas-handler"></div>;
 };
 
 export default memo(CanvasHandler, isEqual);

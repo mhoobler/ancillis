@@ -6,6 +6,7 @@ const testData: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
+    keyframes: [],
   },
   2: {
     id: "2",
@@ -14,6 +15,7 @@ const testData: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
+    keyframes: [],
   },
   3: {
     id: "3",
@@ -22,6 +24,7 @@ const testData: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
+    keyframes: [],
   },
 };
 

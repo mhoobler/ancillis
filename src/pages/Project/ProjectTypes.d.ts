@@ -1,3 +1,12 @@
+interface BaseKeyframe {
+  times: number[];
+  values: number[];
+}
+
+interface NamedKeyframe extends BaseKeyframe {
+  name: string;
+}
+
 type SegmentType = {
   id: string;
   type: string;
@@ -5,6 +14,7 @@ type SegmentType = {
   x: number;
   y: number;
   connections: string[];
+  keyframes: BaseKeyframe;
 };
 
 type SegmentMap = { [key: string]: SegmentType };

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Sidebar, CanvasContainer } from "./containers";
+import { Sidebar, Canvas, Keyframes } from "./containers";
 
 import { ProjectProvider } from "./utils/ProjectContext";
 
@@ -12,7 +12,10 @@ const Project: FC = () => {
       <div className="project-container">
         <div className="row">
           <Sidebar />
-          <CanvasContainer />
+          <Canvas />
+        </div>
+        <div className="row">
+          <Keyframes />
         </div>
       </div>
     </ProjectProvider>
