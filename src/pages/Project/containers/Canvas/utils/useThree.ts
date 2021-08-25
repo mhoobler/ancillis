@@ -73,7 +73,13 @@ const useThree = (segments: SegmentType[], options: any) => {
   };
 
   const init = (container: HTMLDivElement) => {
-    console.log("init");
+    // Reset the gui and canvas
+    container.innerHTML = "";
+    let guiElement = document.querySelector(".dg.ac");
+    if (guiElement) {
+      guiElement.innerHTML = "";
+    }
+
     const rect = container.getBoundingClientRect();
     const scene = new Scene();
     const renderer = new WebGLRenderer();
@@ -84,7 +90,10 @@ const useThree = (segments: SegmentType[], options: any) => {
       0.1,
       1000
     );
+    // should create some kind of variable to store camera position
+    // resizing window resets camera position data
     camera.position.z = 25;
+    camera.position.y = 25;
 
     const groundGeo = new PlaneGeometry(500, 500);
     const groundMat = new MeshPhongMaterial({
