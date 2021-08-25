@@ -1,21 +1,24 @@
-import { FC, useState, useEffect, useCallback, useContext } from "react";
-import useThree from "./utils/useThree";
+import { FC, useState, useEffect, useMemo, useContext } from "react";
+
 import { ProjectContext } from "../../utils/ProjectContext";
+import useThree from "./utils/useThree";
+
+// Hopefully this will be depricated soon
 
 const Canvas: FC = () => {
   const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
   const { state } = useContext(ProjectContext);
+
   const segments = Object.keys(state.segments).map(
     (key) => state.segments[key]
   );
   const { init } = useThree(segments, { gui: true });
 
-  const createScene = useCallback(
-    (node: HTMLDivElement) => {
-      init(node);
-    },
-    [init]
-  );
+  const createScene = useMemo(() => {
+    if (wrapperRef) {
+      init(wrapperRef);
+    }
+  }, [wrapperRef, init]);
 
   useEffect(() => {
     // Kind of a crude way of forcing a rerender when resizing
@@ -23,7 +26,6 @@ const Canvas: FC = () => {
     let handleResize: any;
 
     if (wrapperRef) {
-      createScene(wrapperRef);
       handleResize = () => setWrapperRef(null);
       window.addEventListener("resize", handleResize);
     }

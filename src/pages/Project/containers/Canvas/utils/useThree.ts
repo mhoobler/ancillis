@@ -20,6 +20,7 @@ import {
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //@ts-ignore
 import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
+var gui: any;
 
 const useThree = (segments: SegmentType[], options: any) => {
   // TODO: change how this works so we can allow more advanced segments
@@ -67,23 +68,21 @@ const useThree = (segments: SegmentType[], options: any) => {
       mesh.position.y = 10 * i;
       mesh.add(skeleton.bones[0]);
       mesh.bind(skeleton);
-      console.log(mesh);
       scene.add(mesh);
+      geometry.dispose();
+      material.dispose();
     }
   };
 
   const init = (container: HTMLDivElement) => {
     // Reset the gui and canvas
     container.innerHTML = "";
-    let guiElement = document.querySelector(".dg.ac");
-    if (guiElement) {
-      guiElement.innerHTML = "";
-    }
 
     const rect = container.getBoundingClientRect();
     const scene = new Scene();
     const renderer = new WebGLRenderer();
     renderer.setSize(rect.width, rect.height);
+    console.log(renderer);
     const camera = new PerspectiveCamera(
       75,
       rect.width / rect.height,
@@ -122,8 +121,10 @@ const useThree = (segments: SegmentType[], options: any) => {
     renderMeshes(scene, skeleton);
 
     if (options.gui) {
-      const gui = new GUI();
-
+      if (gui) {
+        gui.destroy();
+      }
+      gui = new GUI();
       for (let i = 0; i < skeleton.bones.length; i++) {
         const bone = skeleton.bones[i];
 
