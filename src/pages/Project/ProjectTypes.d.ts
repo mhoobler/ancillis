@@ -1,4 +1,7 @@
-type KFTypes = "rotation[x]" | "rotation[y]" | "rotation[z]";
+type KFTypes =
+  | "position.rotation[x]"
+  | "position.rotation[y]"
+  | "position.rotation[z]";
 
 interface TrackData {
   id: string;

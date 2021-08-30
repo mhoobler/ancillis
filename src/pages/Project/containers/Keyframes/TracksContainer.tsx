@@ -5,8 +5,8 @@ import Track from "./Track";
 type Props = {
   zoom: number;
   trackDataArray: TrackData[];
-  editKeyframe: (okf: Keyframe, nkf: Keyframe) => void;
-  deleteKeyframe: (kf: Keyframe) => void;
+  editKeyframe: (id: string, okf: Keyframe, nkf: Keyframe) => void;
+  deleteKeyframe: (id: string, kf: Keyframe) => void;
 };
 
 const TracksContainer: FC<Props> = ({

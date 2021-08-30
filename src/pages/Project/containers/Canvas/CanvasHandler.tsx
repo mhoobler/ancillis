@@ -65,4 +65,4 @@ const CanvasHandler: FC<Props> = ({ segments }) => {
   return <div ref={handleRef} className="canvas-handler"></div>;
 };
 
-export default memo(CanvasHandler, isEqual);
+export default CanvasHandler;
