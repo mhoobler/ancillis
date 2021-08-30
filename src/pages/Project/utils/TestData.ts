@@ -15,7 +15,20 @@ const testData: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
-    keyframes: [],
+    keyframes: [
+      {
+        type: "rotation[x]",
+        start: 1,
+        length: 1.5,
+        value: Math.PI * 0.5,
+      },
+      {
+        type: "rotation[x]",
+        start: 1.5,
+        length: 2,
+        value: Math.PI * 0.5,
+      },
+    ],
   },
   3: {
     id: "3",

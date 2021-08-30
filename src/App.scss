@@ -6,6 +6,16 @@
   box-sizing: border-box;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  padding: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .App {
   background-color: #282828;
   flex-direction: column;

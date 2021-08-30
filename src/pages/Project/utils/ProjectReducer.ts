@@ -56,7 +56,20 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
     }
 
     case "EDIT_KEYFRAME": {
-      return state;
+      const { id, oldKeyframe, newKeyframe } = payload;
+      const newSegment = { ...state.segments[id] };
+
+      newSegment.keyframes = newSegment.keyframes.map((kf: Keyframe) => {
+        if (kf === oldKeyframe) {
+          console.log(true, kf);
+          return newKeyframe;
+        }
+        return kf;
+      });
+
+      state.segments[id] = newSegment;
+
+      return { ...state };
     }
 
     case "DELETE_KEYFRAME": {

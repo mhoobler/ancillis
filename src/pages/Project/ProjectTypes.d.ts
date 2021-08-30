@@ -1,21 +1,27 @@
-interface BaseKeyframe {
-  times: number[];
-  values: number[];
-}
+type KFTypes = "rotation[x]" | "rotation[y]" | "rotation[z]";
 
-interface NamedKeyframe extends BaseKeyframe {
+interface TrackData {
+  id: string;
   name: string;
+  keyframes: Keyframe[];
 }
 
-type SegmentType = {
+interface Keyframe {
+  type: FKTypes;
+  start: number;
+  length: number;
+  value: number;
+}
+
+interface SegmentType {
   id: string;
   type: string;
   name: string;
   x: number;
   y: number;
   connections: string[];
-  keyframes: BaseKeyframe;
-};
+  keyframes: Keyframe[];
+}
 
 type SegmentMap = { [key: string]: SegmentType };
 

@@ -4,14 +4,7 @@ import useSegmentDragHandlers from "./utils/useSegmentDragHandlers";
 import { getPathString } from "./utils/SVGFunctions";
 import "./Segment.scss";
 
-interface ParentProps {
-  id: string;
-  x: number;
-  y: number;
-  type: string;
-  name: string;
-  connections: string[];
-}
+interface ParentProps extends SegmentType {}
 
 interface ChildrenProps extends ParentProps {
   connectorMouseDown: (e: MouseEvent<HTMLElement>) => void;
@@ -127,6 +120,7 @@ const Segment: React.FC<ParentProps> = ({
   type,
   name,
   connections,
+  keyframes,
 }) => {
   const { connectorMouseDown, containerMouseDown } = useSegmentDragHandlers({
     id,
@@ -135,6 +129,7 @@ const Segment: React.FC<ParentProps> = ({
     type,
     name,
     connections,
+    keyframes,
   });
   const [ref, setRef] = useState(null);
 
