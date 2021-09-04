@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ProjectContext } from "../../utils/ProjectContext";
 
 import Segment from "./Segment";
+import "./style.scss";
 
 const ProjectSegments: React.FC = () => {
   const { state } = useContext(ProjectContext);
@@ -12,8 +13,7 @@ const ProjectSegments: React.FC = () => {
         {state.segments &&
           Object.keys(state.segments).map((key: string) => {
             const segment: SegmentType = state.segments[key];
-            console.log(segment);
-            return <Segment {...segment} key={key} />;
+            return <Segment segment={segment} key={key} />;
           })}
         {state.segments &&
           Object.keys(state.segments).map((key: string) => {

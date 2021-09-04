@@ -1,0 +1,34 @@
+.project-sidebar-wrapper {
+
+  .project-sidebar-container {
+
+    .project-sidebar-toolbar {
+      background-color: #454545;
+
+      .modal-container {
+        background-color: #9f9f9f;
+        display: flex;
+
+        .segment-select-sidebar {
+          background-color: #787878;
+          flex: 1 0 20%;
+        }
+
+        .segment-cards-list {
+          flex: 4 0 80%;
+          overflow: auto;
+          display: flex;
+          flex-wrap: wrap;
+
+          .segment-card {
+            margin: none;
+            height: 120px;
+            width: 120px;
+            margin: 4px;
+            background-color: #676767;
+          }
+        }
+      }
+    }
+  }
+}

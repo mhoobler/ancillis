@@ -1,15 +1,25 @@
-import React from "react";
+import { FC } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { Project } from "./pages";
+import { Project, Home } from "./pages";
 
 import "./App.scss";
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App">
-      <Project />
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Project />
+          </Route>
+          <Route path="/project">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

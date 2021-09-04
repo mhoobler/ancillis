@@ -1,0 +1,38 @@
+.modal-wrapper {
+  background-color: rgba(0, 0, 0, 0.45);
+  transition: opacity 200ms;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &.show {
+    opacity: 100%;
+  }
+  &.hide2 {
+    opacity: 0%;
+  }
+
+  .modal-container {
+    background-color: white;
+    color: black;
+    transition: top 200ms;
+    z-index: 9999;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    margin: auto auto;
+    position: relative;
+
+    &.show {
+      top: 0;
+    }
+    &.hide2 {
+      top: 300px;
+    }
+
+  }
+}

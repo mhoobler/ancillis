@@ -1,5 +1,7 @@
 import { FC, useState, useEffect, useCallback } from "react";
 
+import { PIXEL_VALUES } from "./KeyframesContainer";
+
 type Props = {
   zoom: number;
   forwardRef: any;
@@ -8,10 +10,11 @@ type Props = {
 const Toolbar: FC<Props> = ({ zoom, forwardRef }) => {
   const [mousePosition, setMousePosition] = useState(0.0);
   const { current } = forwardRef;
+  const { label, second } = PIXEL_VALUES;
   // 60 pixels in 1 second
   // we reserve 180px for the track labels and an extra 2px because it ends up looking nicer
   const calcTime = (n: number) => {
-    const calc = Math.round(((n - 182) / 60 / zoom) * 100) / 100;
+    const calc = Math.round(((n - label) / second / zoom) * 100) / 100;
     return calc > 0 ? calc.toFixed(2) : "0.00";
   };
 

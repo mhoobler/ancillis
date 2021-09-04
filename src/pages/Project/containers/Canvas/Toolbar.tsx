@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { playAnimations, pauseAnimations } from "./utils/Apple";
+import { playAnimations, pauseAnimations } from "./utils/handleThree";
 
 const Toolbar: FC = () => {
   return (

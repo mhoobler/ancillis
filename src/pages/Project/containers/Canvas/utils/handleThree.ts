@@ -25,11 +25,18 @@ import {
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //@ts-ignore
 import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
+
+import ResourceTracker from "./ResourceTracker";
 var gui: any;
 
 // change this filename
 console.log("APPLE FIRED");
 var nameSet = new Set();
+var skeleton = new Skeleton([]);
+const resTracker = new ResourceTracker();
+const track = resTracker.track.bind(resTracker);
+const untrack = resTracker.untrack.bind(resTracker);
+const dispose = resTracker.dispose.bind(resTracker);
 
 // TODO: change how this works so we can allow more advanced segments
 // Basically whole thing needs to change
@@ -54,7 +61,9 @@ const constructSkeleton = (segments: SegmentType[]) => {
     // TODO: else edit bone ?
   }
   bones[0].position.y = -10 * (segments.length - 1);
-  return new Skeleton(bones);
+  const skeleton = new Skeleton(bones);
+  console.log(skeleton);
+  return skeleton;
 };
 
 const skinGeometry = (geometry: BufferGeometry, index: number) => {
@@ -100,17 +109,21 @@ const renderMeshes = (
         });
         const wfMesh = new SkinnedMesh(geometry, wfMaterial);
         wfMesh.position.y = 10 * i;
+        wfMesh.name = `wfMesh-${name}`;
+        nameSet.add(`wfMesh-${name}`);
         wfMesh.add(skeleton.bones[0]);
         wfMesh.bind(skeleton);
         scene.add(wfMesh);
+
+        track(wfMesh);
       }
 
       mesh.position.y = 10 * i;
       mesh.add(skeleton.bones[0]);
       mesh.bind(skeleton);
       scene.add(mesh);
-      geometry.dispose();
-      material.dispose();
+
+      track(mesh);
     }
     // TODO: else edit bone ?
   }
@@ -130,7 +143,6 @@ const createAnimations = (skeleton: Skeleton, segments: SegmentType[]) => {
     const mappedClipData: { [key: string]: ClipData } = {};
 
     for (let kf of segment.keyframes) {
-      console.log(kf);
       const mappedProp = mappedClipData[kf.type];
       const end = kf.start + kf.length;
       length = end > length ? end : length;
@@ -157,18 +169,14 @@ const createAnimations = (skeleton: Skeleton, segments: SegmentType[]) => {
         };
       }
     }
-    console.log(segment);
 
     // Handle THREE constructors
     const mapKeys = Object.keys(mappedClipData);
     const { name } = segment;
     const bone = skeleton.getBoneByName(`bone-${name}`);
-    console.log(bone);
     const tracks = [];
     if (bone) {
-      console.log(bone);
       for (let key of mapKeys) {
-        console.log(key);
         const { name, tuples } = mappedClipData[key];
         const sorted = tuples.sort((a, b) => a[0] - b[0]);
         const times = sorted.map((n: [number, number]) => n[0]);
@@ -178,7 +186,6 @@ const createAnimations = (skeleton: Skeleton, segments: SegmentType[]) => {
 
       if (!nameSet.has(`animation-${name}`)) {
         const kfName = `animation-${name}`;
-        console.log(kfName);
         nameSet.add(kfName);
 
         const clip = new AnimationClip(kfName, length, tracks);

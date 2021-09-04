@@ -5,8 +5,26 @@ const testData: SegmentMap = {
     name: "Limb1",
     x: 0,
     y: 0,
-    connections: [],
-    keyframes: [],
+    isBase: false,
+    connections: {
+      north1: null,
+      south1: null,
+    },
+    animations: [],
+    keyframes: [
+      {
+        type: "position.rotation[z]",
+        start: 1,
+        length: 2,
+        value: Math.PI,
+      },
+      {
+        type: "position.rotation[x]",
+        start: 1,
+        length: 2,
+        value: Math.PI,
+      },
+    ],
   },
   2: {
     id: "2",
@@ -14,19 +32,24 @@ const testData: SegmentMap = {
     name: "Socket1",
     x: 0,
     y: 0,
-    connections: [],
+    isBase: false,
+    connections: {
+      north1: null,
+      south1: null,
+    },
+    animations: [],
     keyframes: [
       {
         type: "position.rotation[z]",
         start: 1,
-        length: 1.5,
-        value: Math.PI * 0.5,
+        length: 2,
+        value: Math.PI,
       },
       {
         type: "position.rotation[x]",
-        start: 1.5,
+        start: 1,
         length: 2,
-        value: Math.PI * 0.5,
+        value: Math.PI,
       },
     ],
   },
@@ -36,8 +59,27 @@ const testData: SegmentMap = {
     name: "DoubleSocket1",
     x: 0,
     y: 0,
-    connections: [],
-    keyframes: [],
+    isBase: false,
+    connections: {
+      north1: null,
+      north2: null,
+      south1: null,
+    },
+    animations: [],
+    keyframes: [
+      {
+        type: "position.rotation[z]",
+        start: 1,
+        length: 2,
+        value: Math.PI,
+      },
+      {
+        type: "position.rotation[x]",
+        start: 1,
+        length: 2,
+        value: Math.PI,
+      },
+    ],
   },
 };
 

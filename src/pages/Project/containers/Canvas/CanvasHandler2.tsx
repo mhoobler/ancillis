@@ -1,32 +1,31 @@
-import { FC, useState, useEffect, useMemo, memo } from "react";
+import { FC, useState, useEffect, useMemo } from "react";
 
-import { init } from "./utils/Apple";
+import { init } from "./utils/handleThree";
 
 type Props = {
   segments: SegmentMap;
 };
-const isEqual = (pp: Props, np: Props) => {
-  const ppKeys = Object.keys(pp.segments);
-  const npKeys = Object.keys(np.segments);
-
-  if (ppKeys.length !== npKeys.length) {
-    return false;
-  }
-
-  for (let i = 0; i < ppKeys.length; i++) {
-    const ppSegment = pp.segments[ppKeys[i]];
-    const npSegment = np.segments[npKeys[i]];
-
-    if (npSegment.type !== ppSegment.type) {
-      return false;
-    }
-  }
-
-  return true;
-};
+//const isEqual = (pp: Props, np: Props) => {
+//  const ppKeys = Object.keys(pp.segments);
+//  const npKeys = Object.keys(np.segments);
+//
+//  if (ppKeys.length !== npKeys.length) {
+//    return false;
+//  }
+//
+//  for (let i = 0; i < ppKeys.length; i++) {
+//    const ppSegment = pp.segments[ppKeys[i]];
+//    const npSegment = np.segments[npKeys[i]];
+//
+//    if (npSegment.type !== ppSegment.type) {
+//      return false;
+//    }
+//  }
+//
+//  return true;
+//};
 
 const CanvasHandler2: FC<Props> = ({ segments }) => {
-  console.log("CANVAS");
   const [wrapperRef, setWrapperRef] = useState<Div | null>(null);
 
   const handleRef = (node: HTMLDivElement) => {

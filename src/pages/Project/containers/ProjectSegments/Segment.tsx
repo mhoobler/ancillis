@@ -1,10 +1,11 @@
-import React, { MouseEvent, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import useSegmentDragHandlers from "./utils/useSegmentDragHandlers";
 
 import { getPathString } from "./utils/SVGFunctions";
-import "./Segment.scss";
 
-interface ParentProps extends SegmentType {}
+interface ParentProps {
+  segment: SegmentType;
+}
 
 interface ChildrenProps extends ParentProps {
   connectorMouseDown: (e: MouseEvent<HTMLElement>) => void;
@@ -20,6 +21,27 @@ interface ChildrenProps extends ParentProps {
 //  return compareProps;
 //}
 
+const SegmentBody: FC<ParentProps> = ({ segment }) => {
+  const { name, connections } = segment;
+  const { positives, negatives } = connections;
+  return (
+    <>
+      <div className="positive-end center">
+        {positives.map((str: string, i: number) => {
+          return <div className="positive-connector" />;
+        })}
+      </div>
+      <div>
+        <span className="segment-name">{name}</span>
+      </div>
+      <div className="negative-end center">
+        {negatives.map((str: string, i: number) => {
+          return <div className="negative-connector" />;
+        })}
+      </div>
+    </>
+  );
+};
 const Limb: React.FC<ChildrenProps> = ({ connectorMouseDown, name }) => {
   return (
     <>
@@ -36,44 +58,8 @@ const Limb: React.FC<ChildrenProps> = ({ connectorMouseDown, name }) => {
   );
 };
 
-const Socket: React.FC<ChildrenProps> = ({ connectorMouseDown, name }) => {
-  return (
-    <>
-      <div className="positive-end center">
-        <div className="positive-connector" />
-      </div>
-      <div>
-        <span className="segment-name">{name}</span>
-      </div>
-      <div className="negative-end center">
-        <div onMouseDown={connectorMouseDown} className="negative-connector" />
-      </div>
-    </>
-  );
-};
-
-const DoubleSocket: React.FC<ChildrenProps> = ({
-  connectorMouseDown,
-  name,
-}) => {
-  return (
-    <>
-      <div className="positive-end center">
-        <div className="positive-connector" />
-      </div>
-      <div>
-        <span className="segment-name">{name}</span>
-      </div>
-      <div className="negative-end space-between">
-        <div onMouseDown={connectorMouseDown} className="negative-connector" />
-        <div onMouseDown={connectorMouseDown} className="negative-connector" />
-      </div>
-    </>
-  );
-};
-
 // Finish this, everything should be setup for the string calcuations
-const GetPath: React.FC<any> = ({ id, propRef, targetId, index }) => {
+const GetPath: FC<any> = ({ id, propRef, targetId, index }) => {
   const container = document.getElementById("project-components-container");
   const target = document.getElementById(`segment-${targetId}`);
 
@@ -113,23 +99,9 @@ const GetPath: React.FC<any> = ({ id, propRef, targetId, index }) => {
   return null;
 };
 
-const Segment: React.FC<ParentProps> = ({
-  id,
-  x,
-  y,
-  type,
-  name,
-  connections,
-  keyframes,
-}) => {
+const Segment: React.FC<ParentProps> = ({ segment }) => {
   const { connectorMouseDown, containerMouseDown } = useSegmentDragHandlers({
-    id,
-    x,
-    y,
-    type,
-    name,
-    connections,
-    keyframes,
+    ...segment,
   });
   const [ref, setRef] = useState(null);
 
@@ -137,19 +109,6 @@ const Segment: React.FC<ParentProps> = ({
     setRef(node);
   };
 
-  // Memoization is not working
-  const SelectedSegment: any = (() => {
-    switch (type) {
-      case "LIMB":
-        return Limb;
-      case "SOCKET":
-        return Socket;
-      case "DOUBLE_SOCKET":
-        return DoubleSocket;
-      default:
-        throw Error(`segment type of: ${type} not found`);
-    }
-  })();
   return (
     <>
       <g>
