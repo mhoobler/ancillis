@@ -2,6 +2,7 @@
 .keyframes-container {
 
   .keyframes-handler {
+
     .keyframes-toolbar {
       padding: 8px;
       font-size: 12px;
@@ -11,54 +12,76 @@
         margin-right: 8px;
         margin-bottom: 4px;
       }
+
+      .toolbar-inputs{
+        input {
+          width: 5rem;
+        }
+      }
     }
 
     .keyframes-tracks{
+      display: flex;
+      flex-direction: column;
       position: absolute;
       width: 100%;
       height: 20vh;
       overflow: auto;
+      border-top: 1px solid grey;
       background-size: 60px 60px;
       background-image: 
         linear-gradient(to right, grey 1px, transparent 1px);
+
       .track {
+        display: flex;
+        min-width: 100%;
         position: relative;
         height: 48px;
-        width: 100%;
         border-bottom: 1px solid grey;
         align-items: center;
 
         .track-label {
+          flex: 0 0 auto;
           background-color: #343434;
           width: 180px;
           height: 100%;
         }
 
-        .track-kf {
+        .track-keyframes {
           display: flex;
-          position: absolute;
-          border-radius: 4px;
-          background-color: green;
+          flex: 1 0 auto;
           align-items: center;
-          user-select: none;
-          padding: 4px 0px;
-          text-overflow: clip;
-          box-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
+          min-width: calc(100% - 180px);
+          height: 100%;
 
-          .kf-extend {
-            position: relative;
-            width: 4px;
-            height: 24px;
-            cursor: col-resize;
-            &.left {
-              margin-right: auto;
+          .track-kf {
+            display: flex;
+            position: absolute;
+            border-radius: 4px;
+            background-color: green;
+            align-items: center;
+            user-select: none;
+            padding: 4px 0px;
+            text-overflow: clip;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
+
+            .kf-extend {
+              position: relative;
+              width: 4px;
+              height: 24px;
+              cursor: col-resize;
+              &.left {
+                margin-right: auto;
+              }
+              &.right {
+                margin-left: auto;
+              }
             }
 
-            &.right {
-              margin-left: auto;
-            }
           }
+
         }
+
 
       }
     }

@@ -1,18 +1,17 @@
-import { SkinnedMesh } from "three";
+import { SkinnedMesh, SkeletonHelper } from "three";
 
 class ResourceTracker {
-  resources: Set<SkinnedMesh>;
+  resources: Set<SkinnedMesh | SkeletonHelper>;
 
   constructor() {
     this.resources = new Set();
   }
 
-  track(obj: SkinnedMesh) {
+  track(obj: any) {
     this.resources.add(obj);
-    console.log(this.resources);
   }
 
-  untrack(obj: SkinnedMesh) {
+  untrack(obj: any) {
     this.resources.delete(obj);
   }
 
@@ -28,7 +27,7 @@ class ResourceTracker {
       }
       obj.removeFromParent();
     }
-    //this.resources.clear();
+    this.resources.clear();
   }
 }
 

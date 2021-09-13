@@ -1,6 +1,7 @@
-import { FC, memo, MouseEvent as RME } from "react";
+import { FC, useContext, MouseEvent as RME } from "react";
 
-import { PIXEL_VALUES } from "./KeyframesContainer";
+import { PIXEL_VALUES, GLOBAL_REFS } from "./KeyframesContainer";
+import { KeyframesContext } from "./utils/KeyframesContext";
 
 type Props = {
   zoom: number;
@@ -8,68 +9,70 @@ type Props = {
   id: string;
   keyframe: Keyframe;
   editKeyframe: (id: string, okf: Keyframe, nkf: Keyframe) => void;
-  deleteKeyframe: (id: string, kf: Keyframe) => void;
 };
 
-const Keyframe: FC<Props> = ({
-  zoom,
-  index,
-  id,
-  keyframe,
-  editKeyframe,
-  deleteKeyframe,
-}) => {
-  console.log("kf");
+const Keyframe: FC<Props> = ({ zoom, index, id, keyframe, editKeyframe }) => {
+  const context = useContext(KeyframesContext);
   const { start, length } = keyframe;
   const { label, second } = PIXEL_VALUES;
+  const { keyframeTracks } = GLOBAL_REFS;
 
-  const updateToolbar = (
-    clear: boolean,
-    newStart?: number,
-    newLength?: number
-  ) => {
-    const s = newStart || start;
-    const l = newLength || length;
+  const handleMouseEnter = () => {
+    context.setKeyframe(id, keyframe);
+  };
 
-    const toolbar = document.querySelector(".toolbar-keyframe") as Div;
-
-    if (clear) {
-      const toolbar = document.querySelector(".toolbar-keyframe") as Div;
-      if (toolbar) {
-        toolbar.innerText = "";
-        return;
-      }
-    }
-
-    if (toolbar) {
-      toolbar.innerText = "";
-      toolbar.innerText = `Start: ${s.toFixed(2)} End: ${(s + l).toFixed(2)}`;
-      return;
-    }
-
-    console.warn("no toolbar was found");
+  const handleMouseLeave = () => {
+    context.clearKeyframe();
   };
 
   const handleMouseDown = (e: RME<Div>) => {
     const current = e.currentTarget;
+    const parent = current.parentElement;
+    if (!parent) {
+      throw Error("No parent found on Keyframe event handler");
+    }
     const offset = e.clientX - current.getBoundingClientRect().left;
+    const parentWidth = parent.getBoundingClientRect().width;
+    const currentWidth = current.getBoundingClientRect().width;
     const newKeyframe = { ...keyframe };
 
     const MouseMove = (emove: MouseEvent): any => {
       const { clientX } = emove;
+      const { scrollLeft } = keyframeTracks;
       const newStart =
-        Math.round(((clientX - offset - label) / second / zoom) * 100) / 100;
+        Math.round(
+          ((clientX + scrollLeft - offset - label) / second / zoom) * 100
+        ) / 100;
       const formatStart = newStart > 0 ? newStart : 0.01;
+
+      if (clientX + scrollLeft + currentWidth > parentWidth) {
+        const tracks = document.querySelectorAll(".track");
+        for (let i = 0; i < tracks.length; i++) {
+          if (tracks[i]) {
+            const elm = tracks[i] as Div;
+            elm.style.width = clientX + scrollLeft + currentWidth + "px";
+          }
+        }
+        // reset size should happen during MouseUp
+      } else {
+        const tracks = document.querySelectorAll(".track");
+        for (let i = 0; i < tracks.length; i++) {
+          if (tracks[i]) {
+            const elm = tracks[i] as Div;
+            elm.style.width = "";
+          }
+        }
+      }
 
       current.style.left = formatStart * second * zoom + label + "px";
 
       newKeyframe.start = formatStart;
-      updateToolbar(false, formatStart, newKeyframe.length);
+      context.hardSetKeyframe(id, newKeyframe);
     };
 
     const MouseUp = (eup: MouseEvent) => {
       editKeyframe(id, keyframe, newKeyframe);
-      updateToolbar(false, newKeyframe.start, newKeyframe.length);
+      context.hardSetKeyframe(id, newKeyframe);
 
       document.removeEventListener("mousemove", MouseMove);
       document.removeEventListener("mouseup", MouseUp);
@@ -107,12 +110,12 @@ const Keyframe: FC<Props> = ({
 
       newKeyframe.start = formatStart;
       newKeyframe.length = formatLength;
-      updateToolbar(false, formatStart, formatLength);
+      context.hardSetKeyframe(id, newKeyframe);
     };
 
     const MouseUp = (eup: MouseEvent) => {
       editKeyframe(id, keyframe, newKeyframe);
-      updateToolbar(false, newKeyframe.start, newKeyframe.length);
+      context.hardSetKeyframe(id, newKeyframe);
 
       document.querySelector("body")!.style.cursor = "";
       document.removeEventListener("mousemove", MouseMove);
@@ -144,12 +147,12 @@ const Keyframe: FC<Props> = ({
       parent.style.width = formatLength * second * zoom + "px";
 
       newKeyframe.length = formatLength;
-      updateToolbar(false, newKeyframe.start, formatLength);
+      context.hardSetKeyframe(id, newKeyframe);
     };
 
     const MouseUp = (eup: MouseEvent) => {
       editKeyframe(id, keyframe, newKeyframe);
-      updateToolbar(false, newKeyframe.start, newKeyframe.length);
+      context.hardSetKeyframe(id, newKeyframe);
 
       document.querySelector("body")!.style.cursor = "";
       document.removeEventListener("mousemove", MouseMove);
@@ -162,13 +165,29 @@ const Keyframe: FC<Props> = ({
     document.addEventListener("mouseup", MouseUp);
   };
 
+  const border = (() => {
+    if (context.kfState) {
+      const isEqual =
+        context.kfState.segmentId === id &&
+        context.kfState.keyframe.type === keyframe.type &&
+        context.kfState.keyframe.start === keyframe.start &&
+        context.kfState.keyframe.length === keyframe.length &&
+        context.kfState.keyframe.value === keyframe.value;
+      if (isEqual) {
+        return "1px solid yellow";
+      }
+    }
+    return "none";
+  })();
+
   return (
     <div
       onMouseDown={handleMouseDown}
-      onMouseEnter={() => updateToolbar(false)}
-      onMouseLeave={() => updateToolbar(true)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className="track-kf"
       style={{
+        border,
         left: start * second * zoom + label + "px",
         width: length * second * zoom + "px",
       }}
@@ -179,7 +198,4 @@ const Keyframe: FC<Props> = ({
   );
 };
 
-export default memo(Keyframe, (pp: Props, np: Props) => {
-  const isEqual = pp.keyframe === np.keyframe && pp.zoom === np.zoom;
-  return isEqual;
-});
+export default Keyframe;

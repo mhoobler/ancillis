@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ProjectContext } from "../../utils/ProjectContext";
 
 import Segment from "./Segment";
-import "./style.scss";
+import "./styles.scss";
 
 const ProjectSegments: React.FC = () => {
   const { state } = useContext(ProjectContext);

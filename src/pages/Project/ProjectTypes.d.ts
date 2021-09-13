@@ -2,17 +2,16 @@ interface SegmentSelectType {
   id: string;
   type: string;
   animations: KFTypes[];
+  isBase: boolean;
+  positives: number;
+  negatives: number;
 }
 
 interface SegmentType extends SegmentSelectType {
   name: string;
   x: number;
   y: number;
-  isBase: boolean;
-  connections: {
-    positives: string[];
-    negatives: string[];
-  };
+  connections: string[];
   keyframes: Keyframe[];
 }
 

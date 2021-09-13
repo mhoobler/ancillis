@@ -1,7 +1,9 @@
-import { FC, useState, useCallback } from "react";
+import { FC, useState, useCallback, useContext } from "react";
 
 import Toolbar from "./Toolbar";
 import TracksContainer from "./TracksContainer";
+
+import { KeyframesContext } from "./utils/KeyframesContext";
 
 type Props = {
   trackDataArray: TrackData[];
@@ -16,6 +18,7 @@ const KeyframesHandler: FC<Props> = ({
   editKeyframe,
   deleteKeyframe,
 }) => {
+  const { lockKeyframe } = useContext(KeyframesContext);
   const [zoom, setZoom] = useState(1);
   const [refState, setRefState]: any = useState({ current: null });
 
@@ -33,13 +36,22 @@ const KeyframesHandler: FC<Props> = ({
   }, []);
 
   return (
-    <div onWheel={wheelEvent} ref={handleRef} className="keyframes-handler">
-      <Toolbar zoom={zoom} forwardRef={refState} />
+    <div
+      onWheel={wheelEvent}
+      ref={handleRef}
+      onClick={lockKeyframe}
+      className="keyframes-handler"
+    >
+      <Toolbar
+        zoom={zoom}
+        forwardRef={refState}
+        deleteKeyframe={deleteKeyframe}
+      />
       <TracksContainer
         zoom={zoom}
         trackDataArray={trackDataArray}
+        addKeyframe={addKeyframe}
         editKeyframe={editKeyframe}
-        deleteKeyframe={deleteKeyframe}
       />
     </div>
   );

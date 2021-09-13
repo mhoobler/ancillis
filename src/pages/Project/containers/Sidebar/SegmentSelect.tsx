@@ -1,29 +1,14 @@
 import { FC, useState, ChangeEvent, MouseEvent, useContext } from "react";
 
 import { Modal } from "../../../../components";
+
 import { ProjectContext } from "../../utils/ProjectContext";
+// testData should be pulled from an axios get request
+import testData from "../../utils/TestData";
 
 type Props = {
   handleHide: () => void;
 };
-
-const testSegments: SegmentSelectType[] = [
-  {
-    id: "1",
-    type: "SOCKET",
-    animations: ["position.rotation[y]"],
-  },
-  {
-    id: "1",
-    type: "DOUBLE_SOCKET",
-    animations: ["position.rotation[x]"],
-  },
-  {
-    id: "1",
-    type: "LIMB",
-    animations: [],
-  },
-];
 
 const SegmentSelect: FC<Props> = ({ handleHide }) => {
   const { dispatch } = useContext(ProjectContext);
@@ -64,40 +49,7 @@ const SegmentSelect: FC<Props> = ({ handleHide }) => {
         )}
       </div>
       <ul className="segment-cards-list">
-        {testSegments.map((segment: SegmentSelectType, i: number) => {
-          return (
-            <li
-              key={i}
-              onClick={() => handleSelect(segment)}
-              className="segment-card"
-            >
-              {segment.type}
-            </li>
-          );
-        })}
-        {testSegments.map((segment: SegmentSelectType, i: number) => {
-          return (
-            <li
-              key={i}
-              onClick={() => handleSelect(segment)}
-              className="segment-card"
-            >
-              {segment.type}
-            </li>
-          );
-        })}
-        {testSegments.map((segment: SegmentSelectType, i: number) => {
-          return (
-            <li
-              key={i}
-              onClick={() => handleSelect(segment)}
-              className="segment-card"
-            >
-              {segment.type}
-            </li>
-          );
-        })}
-        {testSegments.map((segment: SegmentSelectType, i: number) => {
+        {testData.map((segment: SegmentSelectType, i: number) => {
           return (
             <li
               key={i}

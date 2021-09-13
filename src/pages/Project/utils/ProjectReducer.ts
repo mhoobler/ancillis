@@ -70,28 +70,52 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
 
     // KEYFRAMES
     case "ADD_KEYFRAME": {
-      return state;
-    }
-
-    case "EDIT_KEYFRAME": {
-      const { id, oldKeyframe, newKeyframe } = payload;
+      const { id, keyframe } = payload;
       const newSegment = { ...state.segments[id] };
-
-      newSegment.keyframes = newSegment.keyframes.map((kf: Keyframe) => {
-        if (kf === oldKeyframe) {
-          console.log(true, kf);
-          return newKeyframe;
-        }
-        return kf;
-      });
-
+      newSegment.keyframes.push(keyframe);
+      console.log(newSegment);
       state.segments[id] = newSegment;
 
       return { ...state };
     }
 
+    // TODO: Fix This
+    case "EDIT_KEYFRAME": {
+      console.log("test");
+      const { id, oldKeyframe, newKeyframe } = payload;
+      const newSegment = { ...state.segments[id] };
+
+      newSegment.keyframes = newSegment.keyframes.map((kf) => {
+        if (kf === oldKeyframe) {
+          return newKeyframe;
+        }
+        return kf;
+      });
+
+      return {
+        ...state,
+        segments: {
+          ...state.segments,
+          [id]: newSegment,
+        },
+      };
+    }
+
     case "DELETE_KEYFRAME": {
-      return state;
+      const { id, keyframe } = payload;
+      console.log(id);
+      const newSegment = { ...state.segments[id] };
+      console.log(newSegment);
+      const newKeyframes = newSegment.keyframes.filter((kf) => kf !== keyframe);
+      newSegment.keyframes = newKeyframes;
+
+      return {
+        ...state,
+        segments: {
+          ...state.segments,
+          [id]: newSegment,
+        },
+      };
     }
 
     default:

@@ -26,22 +26,22 @@ type Props = {
 //};
 
 const CanvasHandler2: FC<Props> = ({ segments }) => {
+  console.log("CanvasHandler2 render");
   const [wrapperRef, setWrapperRef] = useState<Div | null>(null);
 
   const handleRef = (node: HTMLDivElement) => {
     if (node) {
       setWrapperRef(node);
-      console.log(node);
     }
   };
 
-  const createScene = useMemo(() => {
-    if (wrapperRef) {
-      init(wrapperRef, Object.values(segments), {
-        wireframe: true,
-      });
-    }
-  }, [wrapperRef, segments]);
+  // const createScene = useMemo(() => {
+  //   if (wrapperRef) {
+  //     init(wrapperRef, Object.values(segments), {
+  //       wireframe: true,
+  //     });
+  //   }
+  // }, [wrapperRef, segments]);
 
   useEffect(() => {
     // Kind of a crude way of forcing a rerender when resizing
@@ -49,15 +49,20 @@ const CanvasHandler2: FC<Props> = ({ segments }) => {
     // THIS NEEDS TO BE FIXED (garbage collector doesn't work properly)
     let handleResize: any;
 
+    console.log(wrapperRef);
     if (wrapperRef) {
+      console.log("useEffect");
       handleResize = () => setWrapperRef(null);
+      init(wrapperRef, Object.values(segments), {
+        wireframe: true,
+      });
       window.addEventListener("resize", handleResize);
     }
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [createScene, wrapperRef]);
+  }, [segments, wrapperRef]);
 
   return (
     <div ref={handleRef} className="canvas-handler">

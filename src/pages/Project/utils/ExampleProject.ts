@@ -1,0 +1,75 @@
+const testData: SegmentMap = {
+  1: {
+    id: "1",
+    type: "DOUBLE_SOCKET",
+    name: "DoubleSocket1",
+    x: 0,
+    y: 0,
+    isBase: true,
+    positives: 1,
+    negatives: 2,
+    connections: ["2"],
+    animations: [],
+    keyframes: [
+      {
+        type: "position.rotation[z]",
+        start: 2,
+        length: 2,
+        value: 4 * Math.PI,
+      },
+      {
+        type: "position.rotation[z]",
+        start: 1,
+        length: 2,
+        value: 2 * Math.PI,
+      },
+      {
+        type: "position.rotation[x]",
+        start: 1,
+        length: 2,
+        value: 2 * Math.PI,
+      },
+    ],
+  },
+  2: {
+    id: "2",
+    type: "SOCKET",
+    name: "Socket1",
+    x: 0,
+    y: 0,
+    isBase: false,
+    positives: 1,
+    negatives: 1,
+    connections: ["3"],
+    animations: [],
+    keyframes: [
+      {
+        type: "position.rotation[z]",
+        start: 1,
+        length: 2,
+        value: 5 * Math.PI,
+      },
+      {
+        type: "position.rotation[x]",
+        start: 1,
+        length: 2,
+        value: 5 * Math.PI,
+      },
+    ],
+  },
+  3: {
+    id: "3",
+    type: "LIMB",
+    name: "Limb1",
+    x: 0,
+    y: 0,
+    isBase: false,
+    positives: 1,
+    negatives: 1,
+    connections: [],
+    animations: [],
+    keyframes: [],
+  },
+};
+
+export default testData;

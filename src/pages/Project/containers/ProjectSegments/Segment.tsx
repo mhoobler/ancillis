@@ -21,44 +21,6 @@ interface ChildrenProps extends ParentProps {
 //  return compareProps;
 //}
 
-const SegmentBody: FC<ParentProps> = ({ segment }) => {
-  const { name, connections } = segment;
-  const { positives, negatives } = connections;
-  return (
-    <>
-      <div className="positive-end center">
-        {positives.map((str: string, i: number) => {
-          return <div className="positive-connector" />;
-        })}
-      </div>
-      <div>
-        <span className="segment-name">{name}</span>
-      </div>
-      <div className="negative-end center">
-        {negatives.map((str: string, i: number) => {
-          return <div className="negative-connector" />;
-        })}
-      </div>
-    </>
-  );
-};
-const Limb: React.FC<ChildrenProps> = ({ connectorMouseDown, name }) => {
-  return (
-    <>
-      <div className="positive-end center">
-        <div className="positive-connector" />
-      </div>
-      <div>
-        <span className="segment-name">{name}</span>
-      </div>
-      <div className="negative-end center">
-        <div onMouseDown={connectorMouseDown} className="negative-connector" />
-      </div>
-    </>
-  );
-};
-
-// Finish this, everything should be setup for the string calcuations
 const GetPath: FC<any> = ({ id, propRef, targetId, index }) => {
   const container = document.getElementById("project-components-container");
   const target = document.getElementById(`segment-${targetId}`);
@@ -100,6 +62,7 @@ const GetPath: FC<any> = ({ id, propRef, targetId, index }) => {
 };
 
 const Segment: React.FC<ParentProps> = ({ segment }) => {
+  const { id, x, y, negatives, positives, name, connections } = segment;
   const { connectorMouseDown, containerMouseDown } = useSegmentDragHandlers({
     ...segment,
   });
@@ -120,12 +83,29 @@ const Segment: React.FC<ParentProps> = ({ segment }) => {
             onMouseDown={containerMouseDown}
             className="segment-container"
           >
-            <SelectedSegment
-              type={type}
-              name={name}
-              connectorMouseDown={connectorMouseDown}
-              connections={connections}
-            />
+            <div className="positive-end center">
+              {Array(positives)
+                .fill(0)
+                .map((_: number, i: number) => {
+                  return <div className="positive-connector" key={i} />;
+                })}
+            </div>
+            <div>
+              <span className="segment-name">{name}</span>
+            </div>
+            <div className="negative-end center">
+              {Array(negatives)
+                .fill(0)
+                .map((_: number, i: number) => {
+                  return (
+                    <div
+                      key={i}
+                      className="negative-connector"
+                      onMouseDown={connectorMouseDown}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </foreignObject>
       </g>
