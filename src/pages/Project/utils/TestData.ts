@@ -1,28 +1,37 @@
-const testData: SegmentMap = {
-  1: {
+// testData should be pulled from an axios get request
+const testData: SegmentSelectType[] = [
+  {
     id: "1",
-    type: "LIMB",
-    name: "Limb1",
-    x: 0,
-    y: 0,
-    connections: [],
+    type: "BASE",
+    isBase: true,
+    positives: 0,
+    negatives: 1,
+    animations: [],
   },
-  2: {
+  {
     id: "2",
-    type: "SOCKET",
-    name: "Socket1",
-    x: 0,
-    y: 0,
-    connections: [],
+    type: "HINGE",
+    isBase: false,
+    positives: 1,
+    negatives: 1,
+    animations: ["position.rotation[y]"],
   },
-  3: {
+  {
     id: "3",
-    type: "DOUBLE_SOCKET",
-    name: "DoubleSocket1",
-    x: 0,
-    y: 0,
-    connections: [],
+    type: "SERVO",
+    isBase: false,
+    positives: 1,
+    negatives: 1,
+    animations: ["position.rotation[x]"],
   },
-};
+  {
+    id: "3",
+    type: "LIMB",
+    isBase: false,
+    positives: 1,
+    negatives: 1,
+    animations: [],
+  },
+];
 
 export default testData;

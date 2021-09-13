@@ -3,7 +3,25 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
 
   switch (type) {
     case "ADD_SEGMENT": {
-      return state;
+      const { segment, name } = payload;
+      const len = Object.keys(state.segments).length;
+      const newSegment = {
+        ...segment,
+        id: len.toString(),
+        name,
+        x: 0,
+        y: 0,
+        connections: [],
+        keyframes: [],
+      };
+
+      return {
+        ...state,
+        segments: {
+          ...state.segments,
+          [len.toString()]: newSegment,
+        },
+      };
     }
 
     case "MOVE_SEGMENT": {
@@ -48,6 +66,56 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
 
     case "DELETE_SEGMENT": {
       return state;
+    }
+
+    // KEYFRAMES
+    case "ADD_KEYFRAME": {
+      const { id, keyframe } = payload;
+      const newSegment = { ...state.segments[id] };
+      newSegment.keyframes.push(keyframe);
+      console.log(newSegment);
+      state.segments[id] = newSegment;
+
+      return { ...state };
+    }
+
+    // TODO: Fix This
+    case "EDIT_KEYFRAME": {
+      console.log("test");
+      const { id, oldKeyframe, newKeyframe } = payload;
+      const newSegment = { ...state.segments[id] };
+
+      newSegment.keyframes = newSegment.keyframes.map((kf) => {
+        if (kf === oldKeyframe) {
+          return newKeyframe;
+        }
+        return kf;
+      });
+
+      return {
+        ...state,
+        segments: {
+          ...state.segments,
+          [id]: newSegment,
+        },
+      };
+    }
+
+    case "DELETE_KEYFRAME": {
+      const { id, keyframe } = payload;
+      console.log(id);
+      const newSegment = { ...state.segments[id] };
+      console.log(newSegment);
+      const newKeyframes = newSegment.keyframes.filter((kf) => kf !== keyframe);
+      newSegment.keyframes = newKeyframes;
+
+      return {
+        ...state,
+        segments: {
+          ...state.segments,
+          [id]: newSegment,
+        },
+      };
     }
 
     default:

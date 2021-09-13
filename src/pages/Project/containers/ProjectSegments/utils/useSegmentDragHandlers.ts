@@ -68,7 +68,10 @@ const useSegmentDragHandlers = (props: SegmentType) => {
       const toId = parent.dataset.id;
 
       // Updating state will create permanent path
-      if (props.id !== toId && upTarget.className.includes("positive")) {
+      if (
+        props.id !== toId &&
+        upTarget.className.toString().includes("positive")
+      ) {
         dispatch({
           type: "CREATE_CONNECTION",
           payload: { fromId: props.id, toId, index },

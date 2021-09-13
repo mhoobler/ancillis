@@ -1,9 +1,9 @@
 import { createContext, FC, useReducer } from "react";
-import testData from "./TestData";
+import exampleProject from "./ExampleProject";
 import projectReducer from "./ProjectReducer";
 
 const initState: ProjectStateType = {
-  segments: testData,
+  segments: exampleProject,
 };
 
 const ProjectContext = createContext<ProjectContextType>({

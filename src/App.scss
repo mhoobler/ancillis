@@ -1,9 +1,32 @@
+$primary: #129AF0 !default;
+$secondary: #D0DFEA;
+$accent1: #FFFF2D;
+$accent2: #FF3232;
+
+:root {
+  --primary: #129AF0;
+  --secondary: #D0DFEA;
+  --accent1: #FFFF2D;
+  --accent2: #FF3232;
+  --dark: #282828;
+}
+
 * {
   margin: 0;
   padding: 0;
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  padding: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .App {

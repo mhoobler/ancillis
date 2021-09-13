@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ProjectContext } from "../../utils/ProjectContext";
 
 import Segment from "./Segment";
+import "./styles.scss";
 
 const ProjectSegments: React.FC = () => {
   const { state } = useContext(ProjectContext);
@@ -11,8 +12,8 @@ const ProjectSegments: React.FC = () => {
       <svg id="project-components-container" xmlns="http://www.w3.org/2000/svg">
         {state.segments &&
           Object.keys(state.segments).map((key: string) => {
-            const segment = state.segments[key];
-            return <Segment {...segment} key={key} />;
+            const segment: SegmentType = state.segments[key];
+            return <Segment segment={segment} key={key} />;
           })}
         {state.segments &&
           Object.keys(state.segments).map((key: string) => {

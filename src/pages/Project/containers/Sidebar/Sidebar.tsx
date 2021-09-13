@@ -1,15 +1,9 @@
 import { FC } from "react";
 
 import { ProjectSegments } from "../";
+import Toolbar from "./Toolbar";
 
-// Move Toolbar
-const Toolbar: FC = () => {
-  return (
-    <div className="project-sidebar-toolbar">
-      <button>Add</button>
-    </div>
-  );
-};
+import "./styles.scss";
 
 const Sidebar: FC = () => {
   return (
