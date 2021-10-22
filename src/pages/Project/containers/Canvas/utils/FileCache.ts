@@ -30,7 +30,6 @@ class FileCache extends Map {
       this.loader.load(
         fileNames[name],
         (gltf) => {
-          console.log(gltf);
           const data = gltf.scene.children[0];
           this.set(name, data);
           resolve(data);

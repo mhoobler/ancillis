@@ -1,69 +1,52 @@
-import { FC, useState, useEffect, useMemo, memo } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 
-import useThree from "./utils/useThree";
+import { init } from "./utils/handleThree";
+import testThree from "./utils/useThree";
 
 type Props = {
   segments: SegmentMap;
 };
 
-const isEqual = (pp: Props, np: Props) => {
-  const ppKeys = Object.keys(pp.segments);
-  const npKeys = Object.keys(np.segments);
+const CanvasHandler2: FC<Props> = ({ segments }) => {
+  console.log("CanvasHandler2 render");
+  const [wrapperRef, setWrapperRef] = useState<Div | null>(null);
 
-  if (ppKeys.length !== npKeys.length) {
-    return false;
-  }
+  const handleRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (node) {
+        setWrapperRef(node);
+        testThree(node, segments, {
+          wireframe: true,
+        });
+      }
+    },
+    [segments]
+  );
 
-  for (let i = 0; i < ppKeys.length; i++) {
-    const ppSegment = pp.segments[ppKeys[i]];
-    const npSegment = np.segments[npKeys[i]];
+  useEffect(() => {
+    // Kind of a crude way of forcing a rerender when resizing
+    // the window so we can redraw the canvas
+    // THIS NEEDS TO BE FIXED (garbage collector doesn't work properly)
+    let handleResize: any;
 
-    if (npSegment.type !== ppSegment.type) {
-      return false;
+    if (wrapperRef) {
+      handleResize = () => setWrapperRef(null);
+      init(wrapperRef, Object.values(segments), {
+        wireframe: true,
+      });
+      window.addEventListener("resize", handleResize);
     }
-  }
 
-  return true;
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [segments, wrapperRef]);
+
+  return (
+    <div ref={handleRef} className="canvas-handler">
+      Canvas2
+    </div>
+  );
 };
 
-const CanvasHandler: FC<Props> = ({ segments }) => {
-  //const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
-  //const unwrappedSegments = Object.keys(segments).map((key) => {
-  //  return segments[key];
-  //});
-
-  //const { init } = useThree(unwrappedSegments, { gui: true });
-
-  //const handleRef = (node: HTMLDivElement) => {
-  //  if (node) {
-  //    setWrapperRef(node);
-  //  }
-  //};
-
-  //const createScene = useMemo(() => {
-  //  if (wrapperRef) {
-  //    init(wrapperRef);
-  //  }
-  //}, [wrapperRef, init]);
-
-  //useEffect(() => {
-  //  // Kind of a crude way of forcing a rerender when resizing
-  //  // the window so we can redraw the canvas
-  //  // THIS NEEDS TO BE FIXED (garbage collector doesn't work properly)
-  //  let handleResize: any;
-
-  //  if (wrapperRef) {
-  //    handleResize = () => setWrapperRef(null);
-  //    window.addEventListener("resize", handleResize);
-  //  }
-
-  //  return () => {
-  //    window.removeEventListener("resize", handleResize);
-  //  };
-  //}, [createScene, wrapperRef]);
-
-  //return <div ref={handleRef} className="canvas-handler"></div>;
-  return <div ref={() => {}} className="canvas-handler"></div>;
-};
-
-export default CanvasHandler;
+export default CanvasHandler2;

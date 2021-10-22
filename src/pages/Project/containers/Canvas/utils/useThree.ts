@@ -41,9 +41,6 @@ Object3D.prototype.traverse = function (callback) {
   for (let i = 0, l = children.length; i < l; i++) {
     if (children[i]) {
       children[i].traverse(callback);
-      console.log(this.userData.name, { ...this.children }, i);
-    } else {
-      console.warn(this.userData.name, { ...this.children }, i);
     }
   }
 };
@@ -105,7 +102,6 @@ const recursivelyConstructSegments = (
     split[0] = "male";
     const boneName = clone.userData[split.join("_")].split(".").join("");
 
-    console.log(parent.bone);
     clone.traverse((obj3d: Object3D) => {
       //console.log(obj3d);
       if (obj3d instanceof SkinnedMesh) {
@@ -119,30 +115,38 @@ const recursivelyConstructSegments = (
     });
   }
 
+  // Add to scene TODO: Remove helper
   scene.add(clone);
   scene.add(helper);
   clone.visible = true;
   resourceTracker.track(clone);
 
+  // Sort through connections, find bones, fire recursion
   const connections = segment.connections2;
   Object.entries(connections).forEach((connection: any) => {
     const split = connection[0].split("_");
+
     if (split[0] === "female" && connection[1]) {
-      console.log(segment, connection);
       const targetSegment = segmentMap[connection[1]];
       const boneName = clone.userData[connection[0]].split(".").join("");
+
+      // TODO: This looks wrong... what if there's multiple meshes?
       clone.traverse((obj3d: Object3D) => {
         if (obj3d instanceof SkinnedMesh) {
           const mesh = obj3d;
           const bone = obj3d.skeleton.getBoneByName(boneName);
-          if (bone) {
-            recursivelyConstructSegments(targetSegment, segmentMap, {
-              segment,
-              bone,
-              mesh,
-              connection,
-            });
+
+          if (!bone) {
+            throw new Error(
+              `no bone found for segment: ${segment.id} on connection: ${connection}`
+            );
           }
+          recursivelyConstructSegments(targetSegment, segmentMap, {
+            segment,
+            bone,
+            mesh,
+            connection,
+          });
         }
       });
     }
@@ -163,6 +167,7 @@ const render = async (
   });
   await fileCache.updateFiles(files);
 
+  // Handle Rendering, Skeletons, and Animations
   resourceTracker.dispose();
   const bases = segments.filter((segment) => segment.type === "BASE");
   bases.forEach((base) => recursivelyConstructSegments(base, segmentMap));

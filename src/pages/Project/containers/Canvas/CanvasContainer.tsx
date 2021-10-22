@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
 import { ProjectContext } from "../../utils/ProjectContext";
-import CanvasHandler2 from "./CanvasHandler2";
+import CanvasHandler from "./CanvasHandler";
 import Toolbar from "./Toolbar";
 
 const CanvasContainer: FC = () => {
@@ -9,7 +9,7 @@ const CanvasContainer: FC = () => {
 
   return (
     <div className="canvas-container">
-      <CanvasHandler2 segments={state.segments} />
+      <CanvasHandler segments={state.segments} />
       <Toolbar />
     </div>
   );
