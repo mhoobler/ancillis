@@ -1,29 +1,11 @@
-import { FC, useState, useEffect, useMemo } from "react";
+import { FC, useState, useEffect } from "react";
 
 import { init } from "./utils/handleThree";
+import testThree from "./utils/useThree";
 
 type Props = {
   segments: SegmentMap;
 };
-//const isEqual = (pp: Props, np: Props) => {
-//  const ppKeys = Object.keys(pp.segments);
-//  const npKeys = Object.keys(np.segments);
-//
-//  if (ppKeys.length !== npKeys.length) {
-//    return false;
-//  }
-//
-//  for (let i = 0; i < ppKeys.length; i++) {
-//    const ppSegment = pp.segments[ppKeys[i]];
-//    const npSegment = np.segments[npKeys[i]];
-//
-//    if (npSegment.type !== ppSegment.type) {
-//      return false;
-//    }
-//  }
-//
-//  return true;
-//};
 
 const CanvasHandler2: FC<Props> = ({ segments }) => {
   console.log("CanvasHandler2 render");
@@ -32,6 +14,9 @@ const CanvasHandler2: FC<Props> = ({ segments }) => {
   const handleRef = (node: HTMLDivElement) => {
     if (node) {
       setWrapperRef(node);
+      testThree(node, segments, {
+        wireframe: true,
+      });
     }
   };
 

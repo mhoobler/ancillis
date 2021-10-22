@@ -88,7 +88,7 @@ const exampleProject: SegmentMap = {
     ],
   },
   4: {
-    ...testData[1],
+    ...testData[3],
     name: "Hinge",
     id: "4",
     x: 0,

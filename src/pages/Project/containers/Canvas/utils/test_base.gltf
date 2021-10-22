@@ -1,0 +1,226 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.1.46",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "extras" : {
+                "glTF2ExportSettings" : {
+                    "export_extras" : 1,
+                    "export_format" : "GLTF_EMBEDDED"
+                }
+            },
+            "name" : "Scene",
+            "nodes" : [
+                5
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "Bone.003",
+            "translation" : [
+                0,
+                0.25,
+                0
+            ]
+        },
+        {
+            "children" : [
+                0
+            ],
+            "name" : "Bone.001",
+            "translation" : [
+                0,
+                0,
+                -0.5
+            ]
+        },
+        {
+            "name" : "Bone.004",
+            "translation" : [
+                0,
+                0.25,
+                0
+            ]
+        },
+        {
+            "children" : [
+                2
+            ],
+            "name" : "Bone.002",
+            "translation" : [
+                0,
+                0,
+                1.5
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "BaseMesh",
+            "skin" : 0
+        },
+        {
+            "children" : [
+                4,
+                1,
+                3
+            ],
+            "extras" : {
+                "female_port_limb": "Bone.003",
+                "female_port_power": "Bone.004"
+            },
+            "name" : "BaseBones"
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "BaseMaterial",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.8000000715255737,
+                    0.2693033814430237,
+                    0.015066411346197128,
+                    1
+                ],
+                "metallicFactor" : 0.3333333432674408,
+                "roughnessFactor" : 0.4000000059604645
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Cube",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "JOINTS_0" : 3,
+                        "WEIGHTS_0" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "skins" : [
+        {
+            "inverseBindMatrices" : 6,
+            "joints" : [
+                1,
+                0,
+                3,
+                2
+            ],
+            "name" : "BaseBones"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 24,
+            "max" : [
+                2,
+                0.25,
+                2
+            ],
+            "min" : [
+                -2,
+                -0.25,
+                -2
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 24,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 36,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "MAT4"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 288
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 576
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 768
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 384,
+            "byteOffset" : 960
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72,
+            "byteOffset" : 1344
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 256,
+            "byteOffset" : 1416
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 1672,
+            "uri" : "data:application/octet-stream;base64,AAAAQAAAgD4AAABAAAAAQAAAgD4AAADAAAAAwAAAgD4AAADAAAAAwAAAgD4AAABAAAAAwAAAgD4AAABAAAAAwAAAgL4AAABAAAAAQAAAgL4AAABAAAAAQAAAgD4AAABAAAAAwAAAgD4AAADAAAAAwAAAgL4AAADAAAAAwAAAgL4AAABAAAAAwAAAgD4AAABAAAAAwAAAgL4AAABAAAAAwAAAgL4AAADAAAAAQAAAgL4AAADAAAAAQAAAgL4AAABAAAAAQAAAgD4AAABAAAAAQAAAgL4AAABAAAAAQAAAgL4AAADAAAAAQAAAgD4AAADAAAAAQAAAgD4AAADAAAAAQAAAgL4AAADAAAAAwAAAgL4AAADAAAAAwAAAgD4AAADAAAAAAAAAgD8AAACAAAAAAAAAgD8AAACAAAAAAAAAgD8AAACAAAAAAAAAgD8AAACAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAACAPwAAAAAAAACAAACAPwAAAAAAAACAAACAPwAAAAAAAACAAACAPwAAAAAAAACAAAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAgPwAAgD4AACA/AAAAPwAAYD8AAAA/AABgPwAAgD4AACA/AAAAAAAAwD4AAAAAAADAPgAAgD4AACA/AACAPgAAID8AAEA/AADAPgAAQD8AAMA+AACAPwAAID8AAIA/AAAAPgAAgD4AAAA+AAAAPwAAwD4AAAA/AADAPgAAgD4AACA/AACAPgAAwD4AAIA+AADAPgAAAD8AACA/AAAAPwAAID8AAAA/AADAPgAAAD8AAMA+AABAPwAAID8AAEA/AwACAAAAAQAAAAEAAwACAAEAAAACAAMAAgADAAEAAAACAAMAAQAAAAIAAwABAAAAAwACAAAAAQADAAIAAAABAAEAAAACAAMAAQAAAAIAAwACAAMAAQAAAAIAAwABAAAAAgADAAEAAAABAAAAAgADAAAAAQADAAIAAwACAAAAAQADAAIAAAABAAMAAgAAAAEAAAABAAMAAgAAAAEAAwACAAAAAQADAAIAAAABAAMAAgABAAAAAgADAAEAAAACAAMAemwLP3aizz7ilzk9oWaUO6TzDD9XUas+8sGKPSe3QD0FTgg/Z3zAPg3FjT23ZLc8L9sWP5PuqT736mA9BNvDPC/bFj+T7qk+9+pgPQTbwzzOZzE/3h9mPuSLcT127748HuEeP1I6mj4QSoE9vB12PHpsCz92os8+4pc5PaFmlDsFTgg/Z3zAPg3FjT23ZLc8fI8YP1Y2lT4YZqs9uhLtPM5nMT/eH2Y+5ItxPXbvvjwv2xY/k+6pPvfqYD0E28M8zmcxP94fZj7ki3E9du++PHyPGD9WNpU+GGarPboS7TzlJCA/4AaAPgSLmT2rZEo9HuEeP1I6mj4QSoE9vB12PHpsCz92os8+4pc5PaFmlDse4R4/UjqaPhBKgT28HXY85SQgP+AGgD4Ei5k9q2RKPaTzDD9XUas+8sGKPSe3QD2k8ww/V1GrPvLBij0nt0A95SQgP+AGgD4Ei5k9q2RKPXyPGD9WNpU+GGarPboS7TwFTgg/Z3zAPg3FjT23ZLc8AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcAAACAPwAAAIAAAAAAAAAAgAAAAIAAAIA/AAAAgAAAAAAAAAAAAAAAgAAAgD8AAACAAAAAgAAAAAAAAAA/AACAPwAAgD8AAACAAAAAAAAAAIAAAACAAACAPwAAAIAAAAAAAAAAAAAAAIAAAIA/AAAAgAAAAIAAAIC+AAAAPwAAgD8AAIA/AAAAgAAAAAAAAACAAAAAgAAAgD8AAACAAAAAAAAAAAAAAACAAACAPwAAAIAAAACAAAAAAAAAwL8AAIA/AACAPwAAAIAAAAAAAAAAgAAAAIAAAIA/AAAAgAAAAAAAAAAAAAAAgAAAgD8AAACAAAAAgAAAgL4AAMC/AACAPw=="
+        }
+    ]
+}

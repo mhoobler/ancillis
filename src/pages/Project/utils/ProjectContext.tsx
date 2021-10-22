@@ -1,4 +1,4 @@
-import { createContext, FC, useReducer } from "react";
+import { lazy, createContext, FC, useReducer } from "react";
 import exampleProject from "./ExampleProject";
 import projectReducer from "./ProjectReducer";
 

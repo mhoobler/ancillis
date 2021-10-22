@@ -106,7 +106,7 @@ const init = (
   camera.position.z = 25;
   camera.position.y = 25;
 
-  container.appendChild(renderer.domElement);
+  //container.appendChild(renderer.domElement);
   constructSegments(segmentMap, options);
   //const helper = new SkeletonHelper(skeleton.bones[0]);
   //scene.add(helper);
@@ -242,7 +242,6 @@ const compileKeyframes = (targetSegment: SegmentType) => {
 };
 
 const constructSegments = (segments: SegmentMap, options: any) => {
-  console.log(segments);
   const keys = Object.keys(segments);
   const segmentsArray = keys.map((key: string) => segments[key]);
   const bases = segmentsArray.filter((segment: SegmentType) => segment.isBase);
@@ -283,7 +282,6 @@ const constructSegments = (segments: SegmentMap, options: any) => {
         });
       }
 
-      console.log(bones);
       return bones;
     };
     const bones = constructBones(base);
@@ -316,7 +314,6 @@ const constructSegments = (segments: SegmentMap, options: any) => {
       const clip = new AnimationClip(`animation-${name}`, length, tracks);
       const mixer = new AnimationMixer(bone);
       const action = mixer.clipAction(clip);
-      console.log(action);
       action.paused = true;
       action.clampWhenFinished = true;
       action.play();
@@ -335,7 +332,6 @@ const constructSegments = (segments: SegmentMap, options: any) => {
       const index = skeleton.bones.indexOf(targetBone);
 
       const geometry = skinGeometry(new SphereGeometry(5, 16, 8), index);
-      console.log(geometry);
       const material = new MeshBasicMaterial({ color: 0x00aaff });
 
       const mesh = new SkinnedMesh(geometry, material);
@@ -367,8 +363,6 @@ const constructSegments = (segments: SegmentMap, options: any) => {
     };
 
     constructMesh(skeleton.bones[0]);
-
-    console.log(skeleton);
   });
   return "";
 };
