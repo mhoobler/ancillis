@@ -13,10 +13,10 @@ type Props = {
 const SegmentSelect: FC<Props> = ({ handleHide }) => {
   const { dispatch } = useContext(ProjectContext);
   const [name, setName] = useState<string>("");
-  const [segment, setSegment] = useState<SegmentSelectType | null>(null);
+  const [selection, setSelection] = useState<SegmentSelectType | null>(null);
 
-  const handleSelect = (segment: SegmentSelectType) => {
-    setSegment(segment);
+  const handleSelect = (segmentSelect: SegmentSelectType) => {
+    setSelection(segmentSelect);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,18 +24,18 @@ const SegmentSelect: FC<Props> = ({ handleHide }) => {
   };
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-    dispatch({ type: "ADD_SEGMENT", payload: { segment, name } });
+    dispatch({ type: "ADD_SEGMENT", payload: { selection, name } });
   };
 
   const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
-    setSegment(null);
+    setSelection(null);
     setName("");
   };
 
   return (
     <Modal handleHide={handleHide}>
       <div className="segment-select-sidebar">
-        {segment ? (
+        {selection ? (
           <>
             <input value={name} onChange={handleChange} />
 
@@ -49,14 +49,14 @@ const SegmentSelect: FC<Props> = ({ handleHide }) => {
         )}
       </div>
       <ul className="segment-cards-list">
-        {testData.map((segment: SegmentSelectType, i: number) => {
+        {testData.map((segmentSelect: SegmentSelectType, i: number) => {
           return (
             <li
               key={i}
-              onClick={() => handleSelect(segment)}
+              onClick={() => handleSelect(segmentSelect)}
               className="segment-card"
             >
-              {segment.type}
+              {segmentSelect.type}
             </li>
           );
         })}

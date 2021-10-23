@@ -1,50 +1,23 @@
-import { FC, useState, useEffect, useMemo, memo } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 
-import useThree from "./utils/useThree";
+import { render, resize } from "./utils/useThree";
 
 type Props = {
   segments: SegmentMap;
 };
 
-const isEqual = (pp: Props, np: Props) => {
-  const ppKeys = Object.keys(pp.segments);
-  const npKeys = Object.keys(np.segments);
-
-  if (ppKeys.length !== npKeys.length) {
-    return false;
-  }
-
-  for (let i = 0; i < ppKeys.length; i++) {
-    const ppSegment = pp.segments[ppKeys[i]];
-    const npSegment = np.segments[npKeys[i]];
-
-    if (npSegment.type !== ppSegment.type) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-const CanvasHandler: FC<Props> = ({ segments }) => {
-  const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
-  const unwrappedSegments = Object.keys(segments).map((key) => {
-    return segments[key];
-  });
-
-  const { init } = useThree(unwrappedSegments, { gui: true });
+const CanvasHandler2: FC<Props> = ({ segments }) => {
+  console.log("CanvasHandler2 render");
+  const [wrapperRef, setWrapperRef] = useState<Div | null>(null);
 
   const handleRef = (node: HTMLDivElement) => {
     if (node) {
       setWrapperRef(node);
+      render(node, segments, {
+        wireframe: true,
+      });
     }
   };
-
-  const createScene = useMemo(() => {
-    if (wrapperRef) {
-      init(wrapperRef);
-    }
-  }, [wrapperRef, init]);
 
   useEffect(() => {
     // Kind of a crude way of forcing a rerender when resizing
@@ -53,16 +26,20 @@ const CanvasHandler: FC<Props> = ({ segments }) => {
     let handleResize: any;
 
     if (wrapperRef) {
-      handleResize = () => setWrapperRef(null);
-      window.addEventListener("resize", handleResize);
+      // TODO: Redraw not working
+      window.addEventListener("resize", () => resize(wrapperRef));
     }
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [createScene, wrapperRef]);
+  }, [segments, wrapperRef]);
 
-  return <div ref={handleRef} className="canvas-handler"></div>;
+  return (
+    <div ref={handleRef} className="canvas-handler">
+      Canvas2
+    </div>
+  );
 };
 
-export default CanvasHandler;
+export default CanvasHandler2;

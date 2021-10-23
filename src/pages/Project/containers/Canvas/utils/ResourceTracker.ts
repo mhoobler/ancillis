@@ -1,4 +1,4 @@
-import { SkinnedMesh, SkeletonHelper } from "three";
+import { Mesh, SkinnedMesh, SkeletonHelper } from "three";
 
 class ResourceTracker {
   resources: Set<SkinnedMesh | SkeletonHelper>;
@@ -17,17 +17,21 @@ class ResourceTracker {
 
   dispose() {
     const resources = Array.from(this.resources.values());
-    for (let obj of resources) {
-      const { geometry, material } = obj;
+    for (const obj of resources) {
+      obj.traverse((e) => {
+        if (e instanceof Mesh || e instanceof SkeletonHelper) {
+          const { geometry, material } = e;
 
-      geometry.dispose();
-      if (!Array.isArray(material)) {
-        material.dispose();
-      } else {
-      }
-      obj.removeFromParent();
+          geometry.dispose();
+          if (!Array.isArray(material)) {
+            material.dispose();
+          } else {
+            material.forEach((e) => e.dispose());
+          }
+          obj.removeFromParent();
+        }
+      });
     }
-    this.resources.clear();
   }
 }
 

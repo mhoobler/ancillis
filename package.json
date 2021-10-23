@@ -2,6 +2,7 @@
   "name": "ancillary",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -45,5 +46,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "browserslist": "^4.17.4",
+    "glob-parent": "^6.0.2",
+    "immer": "^9.0.6",
+    "nth-check": "^2.0.1",
+    "set-value": "^4.1.0",
+    "trim-newlines": "^4.0.2"
+  },
+  "resolutions": {
+    "browserslist": "^4.17.4",
+    "glob-parent": "^6.0.2",
+    "immer": "^9.0.6",
+    "nth-check": "^2.0.1",
+    "set-value": "^4.1.0",
+    "trim-newlines": "^4.0.2"
   }
 }

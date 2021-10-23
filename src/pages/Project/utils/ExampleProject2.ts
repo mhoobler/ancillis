@@ -11,7 +11,26 @@ const exampleProject: SegmentMap = {
       female_port_power: null,
       female_port_limb: "2",
     },
-    keyframes: [],
+    keyframes: [
+      {
+        type: "position.rotation[z]",
+        start: 2,
+        length: 2,
+        value: 4 * Math.PI,
+      },
+      {
+        type: "position.rotation[z]",
+        start: 1,
+        length: 2,
+        value: 2 * Math.PI,
+      },
+      {
+        type: "position.rotation[x]",
+        start: 1,
+        length: 2,
+        value: 2 * Math.PI,
+      },
+    ],
   },
   2: {
     ...testData[2],
@@ -26,13 +45,13 @@ const exampleProject: SegmentMap = {
     },
     keyframes: [
       {
-        type: "position.rotation[y]",
+        type: "position.rotation[z]",
         start: 1,
         length: 2,
         value: 5 * Math.PI,
       },
       {
-        type: "position.rotation[y]",
+        type: "position.rotation[x]",
         start: 1,
         length: 2,
         value: 5 * Math.PI,
@@ -50,19 +69,6 @@ const exampleProject: SegmentMap = {
       female_port_limb: "4",
       male_port_limb: "2",
     },
-    keyframes: [],
-  },
-  4: {
-    ...testData[1],
-    name: "Hinge",
-    id: "4",
-    x: 0,
-    y: 0,
-    connections: [],
-    connections2: {
-      female_port_limb: "5",
-      male_port_limb: "3",
-    },
     keyframes: [
       {
         type: "position.rotation[z]",
@@ -71,23 +77,23 @@ const exampleProject: SegmentMap = {
         value: 5 * Math.PI,
       },
       {
-        type: "position.rotation[z]",
+        type: "position.rotation[x]",
         start: 1,
         length: 2,
         value: 5 * Math.PI,
       },
     ],
   },
-  5: {
+  4: {
     ...testData[3],
-    name: "Limb2",
-    id: "5",
+    name: "Hinge",
+    id: "4",
     x: 0,
     y: 0,
     connections: [],
     connections2: {
       female_port_limb: null,
-      male_port_limb: "4",
+      male_port_limb: "3",
     },
     keyframes: [
       {

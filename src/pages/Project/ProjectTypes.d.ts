@@ -1,10 +1,16 @@
+type AnimationMap = {
+  [key: string]: KFTypes;
+};
+
 interface SegmentSelectType {
   id: string;
   type: string;
-  animations: KFTypes[];
+  animations: AnimationMap;
   isBase: boolean;
   positives: number;
   negatives: number;
+  connectors: string[];
+  file: string;
 }
 
 interface SegmentType extends SegmentSelectType {
@@ -12,6 +18,7 @@ interface SegmentType extends SegmentSelectType {
   x: number;
   y: number;
   connections: string[];
+  connections2: { [key: string]: string | null };
   keyframes: Keyframe[];
 }
 
