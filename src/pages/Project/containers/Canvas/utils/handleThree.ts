@@ -367,4 +367,6 @@ const constructSegments = (segments: SegmentMap, options: any) => {
   return "";
 };
 
-export { init, playAnimations, pauseAnimations };
+const t = {};
+
+export { t };

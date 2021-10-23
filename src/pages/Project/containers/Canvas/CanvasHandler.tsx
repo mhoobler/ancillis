@@ -1,7 +1,6 @@
 import { FC, useState, useEffect, useCallback } from "react";
 
-import { init } from "./utils/handleThree";
-import testThree from "./utils/useThree";
+import { render, resize } from "./utils/useThree";
 
 type Props = {
   segments: SegmentMap;
@@ -11,17 +10,14 @@ const CanvasHandler2: FC<Props> = ({ segments }) => {
   console.log("CanvasHandler2 render");
   const [wrapperRef, setWrapperRef] = useState<Div | null>(null);
 
-  const handleRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (node) {
-        setWrapperRef(node);
-        testThree(node, segments, {
-          wireframe: true,
-        });
-      }
-    },
-    [segments]
-  );
+  const handleRef = (node: HTMLDivElement) => {
+    if (node) {
+      setWrapperRef(node);
+      render(node, segments, {
+        wireframe: true,
+      });
+    }
+  };
 
   useEffect(() => {
     // Kind of a crude way of forcing a rerender when resizing
@@ -30,11 +26,8 @@ const CanvasHandler2: FC<Props> = ({ segments }) => {
     let handleResize: any;
 
     if (wrapperRef) {
-      handleResize = () => setWrapperRef(null);
-      init(wrapperRef, Object.values(segments), {
-        wireframe: true,
-      });
-      window.addEventListener("resize", handleResize);
+      // TODO: Redraw not working
+      window.addEventListener("resize", () => resize(wrapperRef));
     }
 
     return () => {

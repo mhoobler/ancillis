@@ -3,15 +3,16 @@ const projectReducer = (state: ProjectStateType, action: ProjectActionType) => {
 
   switch (type) {
     case "ADD_SEGMENT": {
-      const { segment, name } = payload;
-      const len = Object.keys(state.segments).length;
-      const newSegment = {
-        ...segment,
+      const { selection, name } = payload;
+      const len = Object.keys(state.segments).length + 1;
+      const newSegment: SegmentType = {
+        ...selection,
         id: len.toString(),
         name,
         x: 0,
         y: 0,
         connections: [],
+        connections2: {},
         keyframes: [],
       };
 

@@ -49,8 +49,8 @@ class FileCache extends Map {
 
     const clone = this.get(name).clone();
     clone.visible = false;
-    const cloneBones: any = {};
-    const cloneMeshes: any = [];
+    const cloneBones: { [key: string]: Bone } = {};
+    const cloneMeshes: SkinnedMesh[] = [];
 
     clone.traverse((e: any) => {
       if (e instanceof Bone) {
@@ -58,15 +58,21 @@ class FileCache extends Map {
       }
       if (e instanceof SkinnedMesh) {
         cloneMeshes.push(e);
+        e.castShadow = true;
+        e.receiveShadow = true;
+        e.frustumCulled = false;
       }
     });
 
-    cloneMeshes.forEach((e: any) => {
-      const newBones = e.skeleton.bones.map((e: any) => {
+    let n: Skeleton;
+    cloneMeshes.forEach((e: SkinnedMesh) => {
+      const newBones = e.skeleton.bones.map((e: Bone) => {
         const b = cloneBones[e.name];
         return b;
       });
-      const n = new Skeleton(newBones, e.skeleton.boneInverses);
+      if (!n) {
+        n = new Skeleton(newBones, e.skeleton.boneInverses);
+      }
       e.bind(n, e.matrixWorld);
     });
 

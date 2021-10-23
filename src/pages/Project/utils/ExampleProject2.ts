@@ -11,7 +11,6 @@ const exampleProject: SegmentMap = {
       female_port_power: null,
       female_port_limb: "2",
     },
-    animations: [],
     keyframes: [
       {
         type: "position.rotation[z]",
@@ -40,7 +39,6 @@ const exampleProject: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
-    animations: [],
     connections2: {
       female_port_limb: "3",
       male_port_limb: "1",
@@ -67,7 +65,6 @@ const exampleProject: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
-    animations: [],
     connections2: {
       female_port_limb: "4",
       male_port_limb: "2",
@@ -94,7 +91,6 @@ const exampleProject: SegmentMap = {
     x: 0,
     y: 0,
     connections: [],
-    animations: [],
     connections2: {
       female_port_limb: null,
       male_port_limb: "3",

@@ -17,13 +17,15 @@ export const GLOBAL_REFS: any = {
 
 const KeyframesContainer: FC = () => {
   const { state, dispatch } = useContext(ProjectContext);
+  const keys = Object.keys(state.segments);
 
-  const trackDataArray: TrackData[] = Object.keys(state.segments).map(
-    (e: string) => {
-      const { name, id, keyframes } = state.segments[e];
-      return { name, id, keyframes };
-    }
-  );
+  const filterKeys: string[] = keys.filter((key) => {
+    return Object.keys(state.segments[key].animations).length > 0;
+  });
+  const trackDataArray: TrackData[] = filterKeys.map((key: string) => {
+    const { name, id, keyframes } = state.segments[key];
+    return { name, id, keyframes };
+  });
 
   const addKeyframe = (id: string, keyframe: Keyframe) => {
     dispatch({ type: "ADD_KEYFRAME", payload: { id, keyframe } });

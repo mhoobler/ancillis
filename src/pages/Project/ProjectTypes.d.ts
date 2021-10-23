@@ -1,7 +1,11 @@
+type AnimationMap = {
+  [key: string]: KFTypes;
+};
+
 interface SegmentSelectType {
   id: string;
   type: string;
-  animations: KFTypes[];
+  animations: AnimationMap;
   isBase: boolean;
   positives: number;
   negatives: number;

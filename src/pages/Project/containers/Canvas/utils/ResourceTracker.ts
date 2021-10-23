@@ -19,29 +19,19 @@ class ResourceTracker {
     const resources = Array.from(this.resources.values());
     for (const obj of resources) {
       obj.traverse((e) => {
-        if (e instanceof Mesh) {
+        if (e instanceof Mesh || e instanceof SkeletonHelper) {
           const { geometry, material } = e;
 
           geometry.dispose();
           if (!Array.isArray(material)) {
             material.dispose();
           } else {
+            material.forEach((e) => e.dispose());
           }
           obj.removeFromParent();
         }
       });
     }
-    // for (let obj of resources) {
-    //   const { geometry, material } = obj;
-
-    //   geometry.dispose();
-    //   if (!Array.isArray(material)) {
-    //     material.dispose();
-    //   } else {
-    //   }
-    //   obj.removeFromParent();
-    // }
-    // this.resources.clear();
   }
 }
 
